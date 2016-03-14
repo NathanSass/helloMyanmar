@@ -22,6 +22,9 @@ class RestTableViewController: UITableViewController {
     
     var restaurantTypes = ["Coffee & Tea Shop", "Cafe", "Tea House", "Austrian / Causual Drink", "French", "Bakery", "Bakery", "Chocolate", "Cafe", "American / Seafood", "American", "American", "Breakfast & Brunch", "Coffee & Tea", "Coffee & Tea", "Latin American", "Spanish", "Spanish", "Spanish", "British", "Thai"]
     
+    
+    var restaurantIsVisited = [Bool](count: 21, repeatedValue: false)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,9 +65,66 @@ class RestTableViewController: UITableViewController {
         cell.thumbnailImageView.layer.cornerRadius = cell.thumbnailImageView.frame.size.width / 2
         cell.thumbnailImageView.clipsToBounds = true
         
+        if restaurantIsVisited[indexPath.row] {
+            cell.accessoryType = .Checkmark
+        } else {
+            cell.accessoryType = .None
+        }
+        
         return cell
     }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+        // Create an option meny as an action sheet
+        let optionMenu = UIAlertController(title: nil, message: "What do you want to do?", preferredStyle: .ActionSheet)
+    
+        // Add actions to the menu
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    
+        optionMenu.addAction(cancelAction)
+    
+    
+        let callActionHandler = { (action:UIAlertAction!) -> Void in
+            let alertMessage = UIAlertController(title: "Service Unavailable", message: "Sorry, the call feature is not available yet. Please retry later.", preferredStyle: .Alert)
+            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            self.presentViewController(alertMessage, animated: true, completion: nil)
+        }
+    
+        let callAction = UIAlertAction(title: "Call " + "123-000-\(indexPath.row)", style: UIAlertActionStyle.Default,handler: callActionHandler)
+    
+        optionMenu.addAction(callAction)
+        
+        var menuMessage = "I've been here"
+        
+        if ( self.restaurantIsVisited[indexPath.row] ) {
+            menuMessage = "I haven't been here"
+        }
+        
+        
+        let isVisitedAction = UIAlertAction(title: menuMessage, style: .Default, handler: {
+                (action:UIAlertAction!) -> Void in
+                
+                let cell = tableView.cellForRowAtIndexPath(indexPath)
+        
+        
+                if (self.restaurantIsVisited[indexPath.row]) {
+                    self.restaurantIsVisited[indexPath.row] = false
+                    cell?.accessoryType =  .None
+                } else {
+                    self.restaurantIsVisited[indexPath.row] = true
+                    cell?.accessoryType = .Checkmark
+                }
+        
+        })
+    
+        optionMenu.addAction(isVisitedAction)
+    
+    
+        // Display the menu
+        self.presentViewController(optionMenu, animated: true, completion: nil)
+    }
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
