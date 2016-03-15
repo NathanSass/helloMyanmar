@@ -91,7 +91,7 @@ class RestTableViewController: UITableViewController {
             self.presentViewController(alertMessage, animated: true, completion: nil)
         }
     
-        let callAction = UIAlertAction(title: "Call " + "123-000-\(indexPath.row)", style: UIAlertActionStyle.Default,handler: callActionHandler)
+        let callAction = UIAlertAction(title: "Call " + "123-000-\(indexPath.row)", style: UIAlertActionStyle.Default, handler: callActionHandler)
     
         optionMenu.addAction(callAction)
         
@@ -125,6 +125,71 @@ class RestTableViewController: UITableViewController {
         self.presentViewController(optionMenu, animated: true, completion: nil)
     }
     
+    // Override to support editing the table view.
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // Delete the row from the data source
+            self.restaurantNames.removeAtIndex(indexPath.row)
+            self.restaurantLocations.removeAtIndex(indexPath.row)
+            self.restaurantTypes.removeAtIndex(indexPath.row)
+            self.restaurantIsVisited.removeAtIndex(indexPath.row)
+            self.restaurantImages.removeAtIndex(indexPath.row)
+            
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+        
+//        self.tableView.reloadData()
+        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject] {
+            
+        var shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default,
+            title: "Share",
+            handler: {
+
+                (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+
+                let shareMenu      = UIAlertController(title: nil, message: "Share using", preferredStyle: .ActionSheet)
+        
+                let twitterAction  = UIAlertAction(title: "Twitter", style: UIAlertActionStyle.Default, handler: nil)
+        
+                let facebookAction = UIAlertAction(title: "Facebook", style: UIAlertActionStyle.Default, handler: nil)
+        
+                let emailAction    = UIAlertAction(title: "Email", style: UIAlertActionStyle.Default, handler: nil)
+        
+                let cancelAction   = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        
+                shareMenu.addAction(twitterAction)
+                shareMenu.addAction(facebookAction)
+                shareMenu.addAction(emailAction)
+                shareMenu.addAction(cancelAction)
+                self.presentViewController(shareMenu, animated: true, completion: nil)
+            } )
+        
+        var deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default,
+            title: "Delete",
+            handler: {
+                (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
+        
+                // Delete the row from the data source
+                self.restaurantNames.removeAtIndex(indexPath.row)
+                self.restaurantLocations.removeAtIndex(indexPath.row)
+                self.restaurantTypes.removeAtIndex(indexPath.row)
+                self.restaurantIsVisited.removeAtIndex(indexPath.row)
+                self.restaurantImages.removeAtIndex(indexPath.row)
+                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            } )
+    
+//        shareAction.backgroundColor  = UIColor(red: 255.0/255.0, green: 166.0/255.0, blue: 51.0/255.0, alpha: 1.0)
+//        deleteAction.backgroundColor = UIColor(red: 51.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1.0)
+        shareAction.backgroundColor  = UIColor.blueColor()
+        deleteAction.backgroundColor = UIColor.redColor()
+    
+        return [deleteAction, shareAction]
+    }
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
@@ -143,17 +208,8 @@ class RestTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+ 
+
 
     /*
     // Override to support rearranging the table view.
