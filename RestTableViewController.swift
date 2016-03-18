@@ -51,6 +51,7 @@ class RestTableViewController: UITableViewController {
         // Return the number of rows in the section.
         return self.restaurantNames.count
     }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath:
         NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "Cell"
@@ -195,6 +196,7 @@ class RestTableViewController: UITableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let destinationController = segue.destinationViewController as! DetailViewController
                 destinationController.restaurantImage = self.restaurantImages[indexPath.row]
+                destinationController.restaurantName  = self.restaurantNames[indexPath.row]
             }
         }
     }
