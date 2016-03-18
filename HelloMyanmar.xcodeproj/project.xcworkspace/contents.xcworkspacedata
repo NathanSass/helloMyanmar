@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../DetailViewController.swift">
+   </FileRef>
+   <FileRef
       location = "self:HelloMyanmar.xcodeproj">
    </FileRef>
 </Workspace>

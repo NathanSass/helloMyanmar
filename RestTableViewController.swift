@@ -190,6 +190,15 @@ class RestTableViewController: UITableViewController {
         return [deleteAction, shareAction]
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showRestaurantDetail" {
+            if let indexPath = self.tableView.indexPathForSelectedRow() {
+                let destinationController = segue.destinationViewController as! DetailViewController
+                destinationController.restaurantImage = self.restaurantImages[indexPath.row]
+            }
+        }
+    }
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell

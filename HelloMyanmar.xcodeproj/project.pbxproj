@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C2092621C9BF76C001968DE /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2092611C9BF76C001968DE /* DetailViewController.swift */; };
 		0C25F5E81C952CB2002578A3 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C25F5E71C952CB2002578A3 /* TableViewCell.swift */; };
 		0C46400C1C94195200AB6A5B /* RestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C46400B1C94195200AB6A5B /* RestTableViewController.swift */; };
 		0CE299251C8FEF15006BEE7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE299241C8FEF15006BEE7A /* AppDelegate.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C2092611C9BF76C001968DE /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = HelloMyanmar.xcodeproj/../DetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		0C25F5E71C952CB2002578A3 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewCell.swift; path = HelloMyanmar.xcodeproj/../TableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		0C46400B1C94195200AB6A5B /* RestTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestTableViewController.swift; path = HelloMyanmar.xcodeproj/../RestTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		0CE2991F1C8FEF15006BEE7A /* HelloMyanmar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloMyanmar.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,7 @@
 		0CE299211C8FEF15006BEE7A /* HelloMyanmar */ = {
 			isa = PBXGroup;
 			children = (
+				0C2092611C9BF76C001968DE /* DetailViewController.swift */,
 				0C25F5E71C952CB2002578A3 /* TableViewCell.swift */,
 				0C46400B1C94195200AB6A5B /* RestTableViewController.swift */,
 				0CE299241C8FEF15006BEE7A /* AppDelegate.swift */,
@@ -218,6 +221,7 @@
 				0C25F5E81C952CB2002578A3 /* TableViewCell.swift in Sources */,
 				0CE299251C8FEF15006BEE7A /* AppDelegate.swift in Sources */,
 				0C46400C1C94195200AB6A5B /* RestTableViewController.swift in Sources */,
+				0C2092621C9BF76C001968DE /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

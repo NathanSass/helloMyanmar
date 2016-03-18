@@ -53,7 +53,7 @@
                                     <outlet property="nameLabel" destination="nVv-zm-ghg" id="blg-ta-U4G"/>
                                     <outlet property="thumbnailImageView" destination="gbn-S3-yBk" id="PA3-5R-ueo"/>
                                     <outlet property="typeLabel" destination="0XM-12-lb1" id="7d7-c2-xUh"/>
-                                    <segue destination="qUc-4p-8XE" kind="push" id="ekP-xX-lTu"/>
+                                    <segue destination="qUc-4p-8XE" kind="push" identifier="showRestaurantDetail" id="ekP-xX-lTu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -71,10 +71,10 @@
             </objects>
             <point key="canvasLocation" x="197" y="300"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="QB1-ro-T3c">
             <objects>
-                <viewController id="qUc-4p-8XE" sceneMemberID="viewController">
+                <viewController id="qUc-4p-8XE" customClass="DetailViewController" customModule="HelloMyanmar" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ieO-h9-Pah"/>
                         <viewControllerLayoutGuide type="bottom" id="aSL-wD-Xn6"/>
@@ -92,6 +92,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="MxL-VU-P44"/>
+                    <connections>
+                        <outlet property="restaurantImageView" destination="bpR-fu-vpO" id="Slj-Ex-6vt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FF5-q5-aEv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
