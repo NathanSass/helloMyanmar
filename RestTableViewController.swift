@@ -10,20 +10,7 @@ import UIKit
 
 class RestTableViewController: UITableViewController {
 
-    var restaurantNames = ["Cafe Deadend", "Homei", "Teakha", "Cafe Loisl", "Petite Oyster", "ForKee Restaurant", "Po's Atelier", "Bourke Street Bakery", "Haigh's Chocolate", "Palomino Espresso", "Upstate", "Traif", "Graham Avenue Meats", "Waffle & Wolf", "Five Leaves", "Cafe Lore", "Confessional", "Barrafina", "Donostia", "Royal Oak", "Thai Cafe"]
-    
-    var restaurantImages = ["cafedeadend.jpg", "homei.jpg", "teakha.jpg", "cafeloisl.jpg",
-        "petiteoyster.jpg", "forkeerestaurant.jpg", "posatelier.jpg", "bourkestreetbakery.jpg",
-        "haighschocolate.jpg", "palominoespresso.jpg", "upstate.jpg", "traif.jpg",
-        "grahamavenuemeats.jpg", "wafflewolf.jpg", "fiveleaves.jpg", "cafelore.jpg",
-        "confessional.jpg", "barrafina.jpg", "donostia.jpg", "royaloak.jpg", "thaicafe.jpg"]
-    
-    var restaurantLocations = ["Hong Kong", "HongKong", "Hong Kong", "Hong Kong", "Hong Kong", "HongKong", "Hong Kong", "Sydney", "Sydney", "Sydney","New York", "New York", "New York", "New York", "NewYork", "New York", "New York", "London", "London","London", "London"]
-    
-    var restaurantTypes = ["Coffee & Tea Shop", "Cafe", "Tea House", "Austrian / Causual Drink", "French", "Bakery", "Bakery", "Chocolate", "Cafe", "American / Seafood", "American", "American", "Breakfast & Brunch", "Coffee & Tea", "Coffee & Tea", "Latin American", "Spanish", "Spanish", "Spanish", "British", "Thai"]
-    
-    
-    var restaurantIsVisited = [Bool](count: 21, repeatedValue: false)
+    var restaurants:[Restaurant] = [ Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", location: "Hong Kong", image: "cafedeadend.jpg", isVisited: false), Restaurant(name: "Homei", type: "Cafe", location: "Hong Kong", image: "homei.jpg", isVisited: false), Restaurant(name: "Teakha", type: "Tea House", location: "Hong Kong", image: "teakha.jpg", isVisited: false), Restaurant(name: "Cafe loisl", type: "Austrian / Causual Drink", location: "Hong Kong", image: "cafeloisl.jpg", isVisited: false), Restaurant(name: "Petite Oyster", type: "French", location: "Hong Kong", image: "petiteoyster.jpg", isVisited: false), Restaurant(name: "For Kee Restaurant", type: "Bakery", location: "Hong Kong", image:"forkeerestaurant.jpg", isVisited: false), Restaurant(name: "Po's Atelier", type: "Bakery", location: "Hong Kong", image: "posatelier.jpg", isVisited: false), Restaurant(name: "Bourke Street Backery", type: "Chocolate", location: "Sydney", image: "bourkestreetbakery.jpg", isVisited: false), Restaurant(name: "Haigh's Chocolate", type: "Cafe", location: "Sydney", image: "haighschocolate.jpg", isVisited: false), Restaurant(name: "Palomino Espresso", type: "American / Seafood", location: "Sydney", image: "palominoespresso.jpg", isVisited: false), Restaurant(name: "Upstate", type: "American", location: "New York", image: "upstate.jpg", isVisited: false), Restaurant(name: "Traif", type: "American", location: "New York", image: "traif.jpg", isVisited: false), Restaurant(name: "Graham Avenue Meats", type: "Breakfast & Brunch", location: "NewYork", image: "grahamavenuemeats.jpg", isVisited: false), Restaurant(name: "Waffle & Wolf", type: "Coffee & Tea", location: "New York", image: "wafflewolf.jpg", isVisited: false), Restaurant(name: "Five Leaves", type: "Coffee & Tea", location: "New York", image: "fiveleaves.jpg", isVisited: false)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +36,7 @@ class RestTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return self.restaurantNames.count
+        return self.restaurants.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath:
@@ -58,15 +45,17 @@ class RestTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath:
         indexPath) as! TableViewCell
         
-        cell.nameLabel.text     = restaurantNames[indexPath.row]
-        cell.typeLabel.text     = restaurantTypes[indexPath.row]
-        cell.locationLabel.text = restaurantLocations[indexPath.row]
-        cell.thumbnailImageView.image = UIImage(named: restaurantImages[indexPath.row])
+        let restaurant      = restaurants[indexPath.row]
+        cell.nameLabel.text = restaurant.name
+        cell.thumbnailImageView.image = UIImage(named: restaurant.image)
+        cell.locationLabel.text = restaurant.location
+        cell.typeLabel.text     = restaurant.type
+//        cell.favorIconImageView.hidden = !restaurant.isVisited
         
         cell.thumbnailImageView.layer.cornerRadius = cell.thumbnailImageView.frame.size.width / 2
         cell.thumbnailImageView.clipsToBounds = true
         
-        if restaurantIsVisited[indexPath.row] {
+        if restaurants[indexPath.row].isVisited {
             cell.accessoryType = .Checkmark
         } else {
             cell.accessoryType = .None
@@ -98,7 +87,7 @@ class RestTableViewController: UITableViewController {
         
         var menuMessage = "I've been here"
         
-        if ( self.restaurantIsVisited[indexPath.row] ) {
+        if ( self.restaurants[indexPath.row].isVisited ) {
             menuMessage = "I haven't been here"
         }
         
@@ -109,14 +98,15 @@ class RestTableViewController: UITableViewController {
                 let cell = tableView.cellForRowAtIndexPath(indexPath)
         
         
-                if (self.restaurantIsVisited[indexPath.row]) {
-                    self.restaurantIsVisited[indexPath.row] = false
+                if (self.restaurants[indexPath.row].isVisited) {
+                    self.restaurants[indexPath.row].isVisited = false
                     cell?.accessoryType =  .None
                 } else {
-                    self.restaurantIsVisited[indexPath.row] = true
+    
+                    self.restaurants[indexPath.row].isVisited = true
                     cell?.accessoryType = .Checkmark
                 }
-        
+    
         })
     
         optionMenu.addAction(isVisitedAction)
@@ -130,11 +120,7 @@ class RestTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            self.restaurantNames.removeAtIndex(indexPath.row)
-            self.restaurantLocations.removeAtIndex(indexPath.row)
-            self.restaurantTypes.removeAtIndex(indexPath.row)
-            self.restaurantIsVisited.removeAtIndex(indexPath.row)
-            self.restaurantImages.removeAtIndex(indexPath.row)
+            self.restaurants.removeAtIndex(indexPath.row)
             
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -175,11 +161,7 @@ class RestTableViewController: UITableViewController {
                 (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
         
                 // Delete the row from the data source
-                self.restaurantNames.removeAtIndex(indexPath.row)
-                self.restaurantLocations.removeAtIndex(indexPath.row)
-                self.restaurantTypes.removeAtIndex(indexPath.row)
-                self.restaurantIsVisited.removeAtIndex(indexPath.row)
-                self.restaurantImages.removeAtIndex(indexPath.row)
+                self.restaurants.removeAtIndex(indexPath.row)
                 self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             } )
     
@@ -195,8 +177,8 @@ class RestTableViewController: UITableViewController {
         if segue.identifier == "showRestaurantDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let destinationController = segue.destinationViewController as! DetailViewController
-                destinationController.restaurantImage = self.restaurantImages[indexPath.row]
-                destinationController.restaurantName  = self.restaurantNames[indexPath.row]
+                destinationController.restaurantImage = self.restaurants[indexPath.row].image
+                destinationController.restaurantName  = self.restaurants[indexPath.row].name
             }
         }
     }
