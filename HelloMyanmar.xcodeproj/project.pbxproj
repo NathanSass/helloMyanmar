@@ -16,6 +16,7 @@
 		0CE2992F1C8FEF15006BEE7A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CE2992D1C8FEF15006BEE7A /* LaunchScreen.xib */; };
 		0CE2993B1C8FEF15006BEE7A /* HelloMyanmarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE2993A1C8FEF15006BEE7A /* HelloMyanmarTests.swift */; };
 		0CFF9AC21C9D698D00D5EC57 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF9AC11C9D698D00D5EC57 /* Restaurant.swift */; };
+		0CFF9AC41C9E723400D5EC57 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFF9AC31C9E723400D5EC57 /* DetailTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		0CE299391C8FEF15006BEE7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CE2993A1C8FEF15006BEE7A /* HelloMyanmarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloMyanmarTests.swift; sourceTree = "<group>"; };
 		0CFF9AC11C9D698D00D5EC57 /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		0CFF9AC31C9E723400D5EC57 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 		0CE299211C8FEF15006BEE7A /* HelloMyanmar */ = {
 			isa = PBXGroup;
 			children = (
+				0CFF9AC31C9E723400D5EC57 /* DetailTableViewCell.swift */,
 				0C2092611C9BF76C001968DE /* DetailViewController.swift */,
 				0C25F5E71C952CB2002578A3 /* TableViewCell.swift */,
 				0C46400B1C94195200AB6A5B /* RestTableViewController.swift */,
@@ -221,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CFF9AC41C9E723400D5EC57 /* DetailTableViewCell.swift in Sources */,
 				0CFF9AC21C9D698D00D5EC57 /* Restaurant.swift in Sources */,
 				0C25F5E81C952CB2002578A3 /* TableViewCell.swift in Sources */,
 				0CE299251C8FEF15006BEE7A /* AppDelegate.swift in Sources */,

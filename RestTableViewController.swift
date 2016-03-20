@@ -177,8 +177,7 @@ class RestTableViewController: UITableViewController {
         if segue.identifier == "showRestaurantDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let destinationController = segue.destinationViewController as! DetailViewController
-                destinationController.restaurantImage = self.restaurants[indexPath.row].image
-                destinationController.restaurantName  = self.restaurants[indexPath.row].name
+                    destinationController.restaurant = restaurants[indexPath.row]
             }
         }
     }
