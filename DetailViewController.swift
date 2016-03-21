@@ -12,17 +12,19 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var restaurantImageView:UIImageView!
     var restaurantImage:String!
     var restaurant:Restaurant!
+    @IBOutlet var tableView:UITableView!
     
 //    @IBOutlet var restaurantNameView:UILabel!
 //    var restaurantName:String!
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         self.restaurantImageView.image = UIImage(named: restaurant.image)
-//        self.restaurantNameView.text   = restaurantName
-
-        // Do any additional setup after loading the view.
+        
+//        self.tableView.separatorColor = UIColor(red:240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0,alpha: 0.8)
+//        self.tableView.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 0.2)
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,6 +56,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                     cell.fieldLabel.text = ""
                     cell.valueLabel.text = ""
             }
+            cell.backgroundColor = UIColor.clearColor()
         
             return cell
     }
