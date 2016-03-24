@@ -133,6 +133,17 @@
                                     <outlet property="dataSource" destination="qUc-4p-8XE" id="I0a-5X-osa"/>
                                 </connections>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AF0-Pi-HcN">
+                                <rect key="frame" x="-4" y="524" width="328" height="44"/>
+                                <animations/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="vjt-Hk-SlK"/>
+                                    <barButtonItem systemItem="action" id="lzR-nA-rwe"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="zHh-3f-YxN"/>
+                                    <barButtonItem systemItem="compose" id="pw6-x7-NSj"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="gaI-GZ-o4a"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -140,7 +151,10 @@
                             <constraint firstAttribute="bottomMargin" secondItem="GTs-Y5-OFl" secondAttribute="bottom" constant="-4" id="2Pj-fI-OPM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GTs-Y5-OFl" secondAttribute="trailing" constant="-16" id="KBa-oG-mi9"/>
                             <constraint firstItem="GTs-Y5-OFl" firstAttribute="leading" secondItem="sPl-nu-SlT" secondAttribute="leadingMargin" constant="-16" id="OIS-1x-CIw"/>
+                            <constraint firstItem="aSL-wD-Xn6" firstAttribute="top" secondItem="AF0-Pi-HcN" secondAttribute="bottom" id="P8O-rP-xPq"/>
                             <constraint firstItem="GTs-Y5-OFl" firstAttribute="top" secondItem="sPl-nu-SlT" secondAttribute="topMargin" id="SDl-LZ-ARz"/>
+                            <constraint firstItem="AF0-Pi-HcN" firstAttribute="leading" secondItem="sPl-nu-SlT" secondAttribute="leadingMargin" constant="-20" id="nIe-gg-uif"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="AF0-Pi-HcN" secondAttribute="trailing" constant="-20" id="xIK-BR-SXy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="MxL-VU-P44"/>
