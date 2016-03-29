@@ -50,29 +50,29 @@ class RestTableViewController: UITableViewController, NSFetchedResultsController
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-//    func controllerWillChangeContent(controller: NSFetchedResultsController!) {
-//        tableView.beginUpdates()
-//    }
-//    
-//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject,
-//        atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType,
-//        newIndexPath: NSIndexPath?) {
-//        switch type {
-//            case .Insert:
-//                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
-//            case .Delete:
-//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//            case .Update:
-//                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//            default:
-//                tableView.reloadData()
-//        }
-//        
-//        restaurants = controller.fetchedObjects as! [Restaurant]
-//    }
-//    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-//        tableView.endUpdates()
-//    }
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController!, didChangeObject anObject: AnyObject!,
+            atIndexPath indexPath: NSIndexPath!, forChangeType type: NSFetchedResultsChangeType,
+            newIndexPath: NSIndexPath!) {
+            switch type {
+        case .Insert:
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+        case .Delete:
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        case .Update:
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        default:
+            tableView.reloadData()
+            }
+            restaurants = controller.fetchedObjects as! [Restaurant]
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.endUpdates()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
