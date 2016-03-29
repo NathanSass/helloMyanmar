@@ -7,25 +7,72 @@
 //
 
 import UIKit
+import CoreData
 
-class RestTableViewController: UITableViewController {
+class RestTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    var restaurants:[Restaurant] = [ Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", location: "Hong Kong", image: "cafedeadend.jpg", isVisited: false), Restaurant(name: "Homei", type: "Cafe", location: "Hong Kong", image: "homei.jpg", isVisited: false), Restaurant(name: "Teakha", type: "Tea House", location: "Hong Kong", image: "teakha.jpg", isVisited: false), Restaurant(name: "Cafe loisl", type: "Austrian / Causual Drink", location: "Hong Kong", image: "cafeloisl.jpg", isVisited: false), Restaurant(name: "Petite Oyster", type: "French", location: "Hong Kong", image: "petiteoyster.jpg", isVisited: false), Restaurant(name: "For Kee Restaurant", type: "Bakery", location: "Hong Kong", image:"forkeerestaurant.jpg", isVisited: false), Restaurant(name: "Po's Atelier", type: "Bakery", location: "Hong Kong", image: "posatelier.jpg", isVisited: false), Restaurant(name: "Bourke Street Backery", type: "Chocolate", location: "Sydney", image: "bourkestreetbakery.jpg", isVisited: false), Restaurant(name: "Haigh's Chocolate", type: "Cafe", location: "Sydney", image: "haighschocolate.jpg", isVisited: false), Restaurant(name: "Palomino Espresso", type: "American / Seafood", location: "Sydney", image: "palominoespresso.jpg", isVisited: false), Restaurant(name: "Upstate", type: "American", location: "New York", image: "upstate.jpg", isVisited: false), Restaurant(name: "Traif", type: "American", location: "New York", image: "traif.jpg", isVisited: false), Restaurant(name: "Graham Avenue Meats", type: "Breakfast & Brunch", location: "NewYork", image: "grahamavenuemeats.jpg", isVisited: false), Restaurant(name: "Waffle & Wolf", type: "Coffee & Tea", location: "New York", image: "wafflewolf.jpg", isVisited: false), Restaurant(name: "Five Leaves", type: "Coffee & Tea", location: "New York", image: "fiveleaves.jpg", isVisited: false)]
+    var fetchResultController:NSFetchedResultsController!
+    var restaurants:[Restaurant] = []
+    
+//    var restaurants:[Restaurant] = [ Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", location: "Hong Kong", image: "cafedeadend.jpg", isVisited: false), Restaurant(name: "Homei", type: "Cafe", location: "Hong Kong", image: "homei.jpg", isVisited: false), Restaurant(name: "Teakha", type: "Tea House", location: "Hong Kong", image: "teakha.jpg", isVisited: false), Restaurant(name: "Cafe loisl", type: "Austrian / Causual Drink", location: "Hong Kong", image: "cafeloisl.jpg", isVisited: false), Restaurant(name: "Petite Oyster", type: "French", location: "Hong Kong", image: "petiteoyster.jpg", isVisited: false), Restaurant(name: "For Kee Restaurant", type: "Bakery", location: "Hong Kong", image:"forkeerestaurant.jpg", isVisited: false), Restaurant(name: "Po's Atelier", type: "Bakery", location: "Hong Kong", image: "posatelier.jpg", isVisited: false), Restaurant(name: "Bourke Street Backery", type: "Chocolate", location: "Sydney", image: "bourkestreetbakery.jpg", isVisited: false), Restaurant(name: "Haigh's Chocolate", type: "Cafe", location: "Sydney", image: "haighschocolate.jpg", isVisited: false), Restaurant(name: "Palomino Espresso", type: "American / Seafood", location: "Sydney", image: "palominoespresso.jpg", isVisited: false), Restaurant(name: "Upstate", type: "American", location: "New York", image: "upstate.jpg", isVisited: false), Restaurant(name: "Traif", type: "American", location: "New York", image: "traif.jpg", isVisited: false), Restaurant(name: "Graham Avenue Meats", type: "Breakfast & Brunch", location: "NewYork", image: "grahamavenuemeats.jpg", isVisited: false), Restaurant(name: "Waffle & Wolf", type: "Coffee & Tea", location: "New York", image: "wafflewolf.jpg", isVisited: false), Restaurant(name: "Five Leaves", type: "Coffee & Tea", location: "New York", image: "fiveleaves.jpg", isVisited: false)]
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain,
             target: nil, action: nil)
         
+        var fetchRequest   = NSFetchRequest(entityName: "Restaurant")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         
+        fetchRequest.sortDescriptors = [sortDescriptor]
         
+        if let managedObjectContext = (UIApplication.sharedApplication().delegate as!
+            AppDelegate).managedObjectContext {
+            
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest,
+            managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self
+            var e: NSError?
+            var result  = fetchResultController.performFetch(&e)
+            restaurants = fetchResultController.fetchedObjects as! [Restaurant]
+            
+            if result != true {
+                println(e?.localizedDescription)
+            }
+        }
+        // Uncomment the following line to preserve selection between presentations
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+//    func controllerWillChangeContent(controller: NSFetchedResultsController!) {
+//        tableView.beginUpdates()
+//    }
+//    
+//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject,
+//        atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType,
+//        newIndexPath: NSIndexPath?) {
+//        switch type {
+//            case .Insert:
+//                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Fade)
+//            case .Delete:
+//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//            case .Update:
+//                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//            default:
+//                tableView.reloadData()
+//        }
+//        
+//        restaurants = controller.fetchedObjects as! [Restaurant]
+//    }
+//    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+//        tableView.endUpdates()
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -52,7 +99,7 @@ class RestTableViewController: UITableViewController {
         
         let restaurant      = restaurants[indexPath.row]
         cell.nameLabel.text = restaurant.name
-        cell.thumbnailImageView.image = UIImage(named: restaurant.image)
+        cell.thumbnailImageView.image = UIImage(data: restaurant.image)
         cell.locationLabel.text = restaurant.location
         cell.typeLabel.text     = restaurant.type
 //        cell.favorIconImageView.hidden = !restaurant.isVisited
@@ -60,7 +107,7 @@ class RestTableViewController: UITableViewController {
         cell.thumbnailImageView.layer.cornerRadius = cell.thumbnailImageView.frame.size.width / 2
         cell.thumbnailImageView.clipsToBounds = true
         
-        if restaurants[indexPath.row].isVisited {
+        if restaurants[indexPath.row].isVisited.boolValue {
             cell.accessoryType = .Checkmark
         } else {
             cell.accessoryType = .None
@@ -92,7 +139,7 @@ class RestTableViewController: UITableViewController {
         
         var menuMessage = "I've been here"
         
-        if ( self.restaurants[indexPath.row].isVisited ) {
+        if ( self.restaurants[indexPath.row].isVisited.boolValue ) {
             menuMessage = "I haven't been here"
         }
         
@@ -103,7 +150,7 @@ class RestTableViewController: UITableViewController {
                 let cell = tableView.cellForRowAtIndexPath(indexPath)
         
         
-                if (self.restaurants[indexPath.row].isVisited) {
+                if (self.restaurants[indexPath.row].isVisited.boolValue) {
                     self.restaurants[indexPath.row].isVisited = false
                     cell?.accessoryType =  .None
                 } else {

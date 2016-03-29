@@ -63,7 +63,21 @@
                             <outlet property="delegate" destination="G8L-15-3Mc" id="bNW-LQ-RCI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Food Pin" id="Sxs-gw-Hzb"/>
+                    <navigationItem key="navigationItem" title="Food Pin" id="Sxs-gw-Hzb">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="bEu-l1-Iwp">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Yqu-xp-jpf">
+                                <rect key="frame" x="-23" y="-15" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" title="New">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="v88-cV-Aiu" kind="push" id="uBm-hy-RCE"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="view" destination="y96-aj-sg1" id="dKS-lT-JTI"/>
                     </connections>
@@ -496,4 +510,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="uBm-hy-RCE"/>
+    </inferredMetricsTieBreakers>
 </document>

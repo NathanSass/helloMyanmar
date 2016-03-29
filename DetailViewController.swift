@@ -24,7 +24,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.estimatedRowHeight = 36.0
         tableView.rowHeight          = UITableViewAutomaticDimension
         
-        self.restaurantImageView.image = UIImage(named: restaurant.image)
+        self.restaurantImageView.image = UIImage(data: restaurant.image)
         
         title = self.restaurant.name
         
@@ -56,7 +56,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                     cell.valueLabel.text = restaurant.location
                 case 3:
                     cell.fieldLabel.text = "Been here"
-                    cell.valueLabel.text = (restaurant.isVisited) ? "Yes, I’ve been here before" : "No"
+                    cell.valueLabel.text = (restaurant.isVisited.boolValue) ? "Yes, I’ve been here before" : "No"
                 default:
                     cell.fieldLabel.text = ""
                     cell.valueLabel.text = ""

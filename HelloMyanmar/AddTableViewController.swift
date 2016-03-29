@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AddTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -14,14 +15,38 @@ class AddTableViewController: UITableViewController, UIImagePickerControllerDele
     @IBOutlet weak var restuarantName:UITextField!
     @IBOutlet weak var restaurantType:UITextField!
     @IBOutlet weak var restaurantLocation:UITextField!
+    
+    var restaurant:Restaurant!
 
     @IBAction func createRestaurantBtn(sender: AnyObject) {
+        
         if let restaurantNameTxt      = restuarantName.text,
                 restaurantTypeTxt     = restaurantType.text,
                 restaurantLocationTxt = restaurantLocation.text {
             println("RestaurantName: " + restaurantNameTxt + " Type: " + restaurantTypeTxt + " Location: " + restaurantLocationTxt)
+        
+        
+        
+            if let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
+                restaurant = NSEntityDescription.insertNewObjectForEntityForName("Restaurant",
+                inManagedObjectContext: managedObjectContext) as! Restaurant
+                restaurant.name      = restaurantNameTxt
+                restaurant.type      = restaurantTypeTxt
+                restaurant.location  = restaurantLocationTxt
+                restaurant.image     = UIImagePNGRepresentation(imageView.image)
+                restaurant.isVisited = true
+                
+                var e: NSError?
+                
+                if managedObjectContext.save(&e) != true {
+                    println("insert error: \(e!.localizedDescription)")
+                    return
+                }
+            }
+
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
