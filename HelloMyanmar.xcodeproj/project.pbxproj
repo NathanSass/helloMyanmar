@@ -10,6 +10,8 @@
 		0C2092621C9BF76C001968DE /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2092611C9BF76C001968DE /* DetailViewController.swift */; };
 		0C25F5E81C952CB2002578A3 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C25F5E71C952CB2002578A3 /* TableViewCell.swift */; };
 		0C46400C1C94195200AB6A5B /* RestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C46400B1C94195200AB6A5B /* RestTableViewController.swift */; };
+		0C91C21B1CA8D35500D83053 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91C21A1CA8D35500D83053 /* ReviewViewController.swift */; };
+		0C91C21D1CA91CA500D83053 /* AddTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91C21C1CA91CA500D83053 /* AddTableViewController.swift */; };
 		0CE299251C8FEF15006BEE7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE299241C8FEF15006BEE7A /* AppDelegate.swift */; };
 		0CE2992A1C8FEF15006BEE7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CE299281C8FEF15006BEE7A /* Main.storyboard */; };
 		0CE2992C1C8FEF15006BEE7A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CE2992B1C8FEF15006BEE7A /* Images.xcassets */; };
@@ -33,6 +35,8 @@
 		0C2092611C9BF76C001968DE /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailViewController.swift; path = HelloMyanmar.xcodeproj/../DetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		0C25F5E71C952CB2002578A3 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewCell.swift; path = HelloMyanmar.xcodeproj/../TableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		0C46400B1C94195200AB6A5B /* RestTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestTableViewController.swift; path = HelloMyanmar.xcodeproj/../RestTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		0C91C21A1CA8D35500D83053 /* ReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReviewViewController.swift; path = HelloMyanmar.xcodeproj/../ReviewViewController.swift; sourceTree = SOURCE_ROOT; };
+		0C91C21C1CA91CA500D83053 /* AddTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTableViewController.swift; sourceTree = "<group>"; };
 		0CE2991F1C8FEF15006BEE7A /* HelloMyanmar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloMyanmar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE299231C8FEF15006BEE7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CE299241C8FEF15006BEE7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 		0CE299211C8FEF15006BEE7A /* HelloMyanmar */ = {
 			isa = PBXGroup;
 			children = (
+				0C91C21C1CA91CA500D83053 /* AddTableViewController.swift */,
+				0C91C21A1CA8D35500D83053 /* ReviewViewController.swift */,
 				0CFF9AC31C9E723400D5EC57 /* DetailTableViewCell.swift */,
 				0C2092611C9BF76C001968DE /* DetailViewController.swift */,
 				0C25F5E71C952CB2002578A3 /* TableViewCell.swift */,
@@ -226,10 +232,12 @@
 			files = (
 				0CFF9AC41C9E723400D5EC57 /* DetailTableViewCell.swift in Sources */,
 				0CFF9AC21C9D698D00D5EC57 /* Restaurant.swift in Sources */,
+				0C91C21B1CA8D35500D83053 /* ReviewViewController.swift in Sources */,
 				0C25F5E81C952CB2002578A3 /* TableViewCell.swift in Sources */,
 				0CE299251C8FEF15006BEE7A /* AppDelegate.swift in Sources */,
 				0C46400C1C94195200AB6A5B /* RestTableViewController.swift in Sources */,
 				0C2092621C9BF76C001968DE /* DetailViewController.swift in Sources */,
+				0C91C21D1CA91CA500D83053 /* AddTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

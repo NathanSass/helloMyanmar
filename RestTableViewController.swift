@@ -191,6 +191,10 @@ class RestTableViewController: UITableViewController {
                     return .LightContent
     }
     
+    @IBAction func unwindToHomeScreen(segue:UIStoryboardSegue) {
+        
+    }
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
