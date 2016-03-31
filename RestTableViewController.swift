@@ -9,12 +9,14 @@
 import UIKit
 import CoreData
 
-class RestTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class RestTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
 
     var fetchResultController:NSFetchedResultsController!
+    
     var restaurants:[Restaurant] = []
     
-//    var restaurants:[Restaurant] = [ Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", location: "Hong Kong", image: "cafedeadend.jpg", isVisited: false), Restaurant(name: "Homei", type: "Cafe", location: "Hong Kong", image: "homei.jpg", isVisited: false), Restaurant(name: "Teakha", type: "Tea House", location: "Hong Kong", image: "teakha.jpg", isVisited: false), Restaurant(name: "Cafe loisl", type: "Austrian / Causual Drink", location: "Hong Kong", image: "cafeloisl.jpg", isVisited: false), Restaurant(name: "Petite Oyster", type: "French", location: "Hong Kong", image: "petiteoyster.jpg", isVisited: false), Restaurant(name: "For Kee Restaurant", type: "Bakery", location: "Hong Kong", image:"forkeerestaurant.jpg", isVisited: false), Restaurant(name: "Po's Atelier", type: "Bakery", location: "Hong Kong", image: "posatelier.jpg", isVisited: false), Restaurant(name: "Bourke Street Backery", type: "Chocolate", location: "Sydney", image: "bourkestreetbakery.jpg", isVisited: false), Restaurant(name: "Haigh's Chocolate", type: "Cafe", location: "Sydney", image: "haighschocolate.jpg", isVisited: false), Restaurant(name: "Palomino Espresso", type: "American / Seafood", location: "Sydney", image: "palominoespresso.jpg", isVisited: false), Restaurant(name: "Upstate", type: "American", location: "New York", image: "upstate.jpg", isVisited: false), Restaurant(name: "Traif", type: "American", location: "New York", image: "traif.jpg", isVisited: false), Restaurant(name: "Graham Avenue Meats", type: "Breakfast & Brunch", location: "NewYork", image: "grahamavenuemeats.jpg", isVisited: false), Restaurant(name: "Waffle & Wolf", type: "Coffee & Tea", location: "New York", image: "wafflewolf.jpg", isVisited: false), Restaurant(name: "Five Leaves", type: "Coffee & Tea", location: "New York", image: "fiveleaves.jpg", isVisited: false)]
+    var searchController:UISearchController!
+    var searchResults:[Restaurant] = []
     
     override func viewDidLoad() {
         
@@ -42,6 +44,16 @@ class RestTableViewController: UITableViewController, NSFetchedResultsController
                 println(e?.localizedDescription)
             }
         }
+        
+        /* Search Bar */
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.sizeToFit()
+        tableView.tableHeaderView  = searchController.searchBar
+        definesPresentationContext = true
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -50,6 +62,23 @@ class RestTableViewController: UITableViewController, NSFetchedResultsController
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    /* Search Bar: Provides rules for searching */
+    func filterContentForSearchText(searchText: String) {
+        searchResults = restaurants.filter({ ( restaurant: Restaurant) -> Bool in 265
+            
+            let nameMatch = restaurant.name.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            return nameMatch != nil
+        })
+    }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        let searchText = searchController.searchBar.text
+        filterContentForSearchText(searchText)
+        tableView.reloadData()
+    }
+    
+    
+    /* Updates TableView: For after a restaurant is created */
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         tableView.beginUpdates()
     }
@@ -88,7 +117,12 @@ class RestTableViewController: UITableViewController, NSFetchedResultsController
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return self.restaurants.count
+        
+        if searchController.active {
+            return searchResults.count
+        } else {
+            return self.restaurants.count
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath:
@@ -97,7 +131,7 @@ class RestTableViewController: UITableViewController, NSFetchedResultsController
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath:
         indexPath) as! TableViewCell
         
-        let restaurant      = restaurants[indexPath.row]
+                let restaurant      = (searchController.active) ? restaurants[indexPath.row] : restaurants[indexPath.row]
         cell.nameLabel.text = restaurant.name
         cell.thumbnailImageView.image = UIImage(data: restaurant.image)
         cell.locationLabel.text = restaurant.location
@@ -207,15 +241,22 @@ class RestTableViewController: UITableViewController, NSFetchedResultsController
                 self.presentViewController(shareMenu, animated: true, completion: nil)
             } )
         
-        var deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default,
-            title: "Delete",
-            handler: {
+            var deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete",handler: {
                 (action:UITableViewRowAction!, indexPath:NSIndexPath!) -> Void in
-        
                 // Delete the row from the data source
-                self.restaurants.removeAtIndex(indexPath.row)
-                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            } )
+                if let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
+                    let restaurantToDelete = self.fetchResultController.objectAtIndexPath(indexPath) as!
+                        Restaurant
+                    managedObjectContext.deleteObject(restaurantToDelete)
+    
+                    var e: NSError?
+    
+                    if managedObjectContext.save(&e) != true {
+                        println("delete error: \(e!.localizedDescription)")
+                    }
+                }})
+    
+    
     
 //        shareAction.backgroundColor  = UIColor(red: 255.0/255.0, green: 166.0/255.0, blue: 51.0/255.0, alpha: 1.0)
 //        deleteAction.backgroundColor = UIColor(red: 51.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1.0)
@@ -229,7 +270,7 @@ class RestTableViewController: UITableViewController, NSFetchedResultsController
         if segue.identifier == "showRestaurantDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let destinationController = segue.destinationViewController as! DetailViewController
-                    destinationController.restaurant = restaurants[indexPath.row]
+                    destinationController.restaurant = (searchController.active) ? searchResults[indexPath.row]: restaurants[indexPath.row]
             }
         }
     }
@@ -242,6 +283,8 @@ class RestTableViewController: UITableViewController, NSFetchedResultsController
         
     }
     
+    
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
@@ -252,13 +295,20 @@ class RestTableViewController: UITableViewController, NSFetchedResultsController
     }
     */
 
-    /*
+
     // Override to support conditional editing of the table view.
+    /* Won't show swipabale buttons on search */
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the specified item to be editable.
-        return true
+        
+        if searchController.active {
+            return false
+        } else {
+            return true
+        }
+        
     }
-    */
+
 
  
 
